@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+server.log
+
+# Git
+.git/
+.gitignore
+
+# Qwen
+.qwen/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Data (будет смонтировано как volume)
+data/
+products.db
+
+# Uploads (будет смонтировано как volume)
+static/uploads/
+
+# Documentation
+README.md

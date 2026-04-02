@@ -1,0 +1,14 @@
+[project]
+name = "chicken-grill"
+version = "1.0.0"
+description = "Сайт для куриц-гриль с админкой"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "jinja2>=3.1.3",
+    "python-multipart>=0.0.6",
+    "sqlalchemy>=2.0.30",
+    "pillow>=10.0.0",
+    "aiofiles>=23.2.1",
+]

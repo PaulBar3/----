@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir *)",
+      "Bash(python *)",
+      "Bash(source *)",
+      "Bash(pip install *)",
+      "Bash(sleep *)",
+      "Bash(curl *)",
+      "Bash(pkill *)",
+      "Bash(nohup *)",
+      "Bash(rm *)",
+      "Bash(uv *)",
+      "Bash(journalctl *)",
+      "Bash(dmesg)",
+      "Bash(wget *)",
+      "Bash(nc *)",
+      "Bash(ss *)",
+      "Bash(timeout *)",
+      "Bash(true)",
+      "Bash(chmod *)",
+      "Bash(cd *)",
+      "Bash(head *)"
+    ]
+  },
+  "$version": 3
+}

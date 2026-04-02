@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Два Крыла{% endblock %}
+
+{% block content %}
+<style>
+    .hero {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: white;
+    }
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+    .hero-emoji {
+        font-size: 5rem;
+        margin-bottom: 1rem;
+    }
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .feature-emoji {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+        color: #666;
+    }
+    .products-preview {
+        margin: 3rem 0;
+    }
+    .products-preview h2 {
+        text-align: center;
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    .product-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+        overflow: hidden;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+    .product-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+    .product-emoji {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    .product-card h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    .product-card p {
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+    .price {
+        font-size: 1.5rem;
+        color: #e74c3c;
+        font-weight: bold;
+    }
+    .cta-button {
+        display: inline-block;
+        margin-top: 1rem;
+    }
+</style>
+
+<div class="hero">
+    <div class="hero-emoji">🍗🔥</div>
+    <h1>Добро пожаловать в Курица-Гриль!</h1>
+    <p>Самые сочные и ароматные курочки гриль в вашем городе</p>
+    <a href="/menu" class="btn">Смотреть меню 📋</a>
+</div>
+
+<div class="container">
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-emoji">🔥</div>
+            <h3>Свежий гриль</h3>
+            <p>Готовим прямо при вас на современном гриле</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">🌿</div>
+            <h3>Натуральные продукты</h3>
+            <p>Только свежее мясо и натуральные специи</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">🚀</div>
+            <h3>Быстрая подача</h3>
+            <p>Минимальное время ожидания заказа</p>
+        </div>
+    </div>
+
+    <div class="products-preview">
+        <h2>Популярные товары</h2>
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                <img src="/static/uploads/products/{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                <span class="product-emoji">{{ product.emoji }}</span>
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <div class="price">{{ product.price }} ₽</div>
+                <a href="/menu" class="btn cta-button">Заказать</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="/menu" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Перейти в меню →</a>
+    </div>
+</div>
+{% endblock %}

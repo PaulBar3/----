@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chicken-grill
+    ports:
+      - "8000:8000"
+    volumes:
+      # Сохранение базы данных
+      - ./data:/app/data
+      # Сохранение загруженных изображений
+      - ./static/uploads:/app/static/uploads
+    environment:
+      - DATABASE_URL=sqlite:///./data/products.db
+      - ADMIN_USER=admin
+      - ADMIN_PASS=admin123
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
