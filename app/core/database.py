@@ -1,19 +1,40 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
-from app.core.config import DATABASE_URL
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker, AsyncAttrs
+from sqlalchemy.orm import declarative_base
+from app.core.config import get_settings
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+settings = get_settings()
+
+# Асинхронный движок для SQLite
+engine = create_async_engine(
+    settings.DATABASE_URL,
+    echo=settings.DEBUG,
+    future=True
+)
+
+# Фабрика сессий
+AsyncSessionLocal = async_sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+    autocommit=False,
+    autoflush=False
+)
+
+Base = declarative_base()
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+async def get_db() -> AsyncSession:
+    """Зависимость для получения асинхронной сессии БД."""
+    async with AsyncSessionLocal() as session:
+        try:
+            yield session
+        finally:
+            await session.close()
 
 
-def init_db():
-    from app.models.product import Base
-    Base.metadata.create_all(bind=engine)
+async def init_db():
+    """Инициализация базы данных (создание таблиц)."""
+    async with engine.begin() as conn:
+        # Импортируем модели для регистрации в Base.metadata
+        from app.models.product import ProductModel  # noqa: F401
+        await conn.run_sync(Base.metadata.create_all)
